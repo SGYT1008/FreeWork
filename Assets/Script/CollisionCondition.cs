@@ -140,32 +140,6 @@ public class CollisionCondition : MonoBehaviour
         {
             Debug.Log("播放特效音乐");
         }
-        if (obj.name == "RectangleLong")
-        {
-            if (obj.transform.childCount == 0)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    go = GameObject.Instantiate(Resources.Load("Prefab/Pass/Pass1_1/UnSure")) as GameObject;
-                    go.name = "UnSure" + i;
-                    go.transform.SetParent(obj.transform, false);
-                    go.transform.localScale = new Vector3(100, 100, 1);
-                    go.transform.localPosition = new Vector3(-217+i*47, 10, 0);
-                    go.SetActive(true);
-                    go.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
-                }
-            }
-            else
-            {
-                return;
-            }
-        }
-      
-
- }
-
-    private void ShowWallByName(GameObject obj)
-    {
         if (obj.name == "UnSure0")
         {
             if (obj.transform.childCount == 0)
@@ -184,7 +158,6 @@ public class CollisionCondition : MonoBehaviour
             }
 
         }
-
         if (obj.name == "UnSure1")
         {
             if (obj.transform.childCount == 0)
@@ -205,7 +178,6 @@ public class CollisionCondition : MonoBehaviour
             }
 
         }
-
         if (obj.name == "UnSure2")
         {
             if (obj.transform.childCount == 0)
@@ -223,7 +195,6 @@ public class CollisionCondition : MonoBehaviour
                 return;
             }
         }
-
         if (obj.name == "UnSure3")
         {
             if (obj.transform.childCount == 0)
@@ -241,8 +212,6 @@ public class CollisionCondition : MonoBehaviour
                 return;
             }
         }
-
-
         if (obj.name == "UnSure4")
         {
             if (obj.transform.childCount == 0)
@@ -260,15 +229,29 @@ public class CollisionCondition : MonoBehaviour
                 return;
             }
         }
-
     }
 
-   
-
-    private void MakeInvoke(GameObject obj)
+    private void ShowWallByName(GameObject obj)
     {
-        obj.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-       // return "1";
+        if (obj.name == "RectangleLong")
+        {
+            if (obj.transform.childCount == 0)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    go = GameObject.Instantiate(Resources.Load("Prefab/Pass/Pass1_1/UnSure")) as GameObject;
+                    go.name = "UnSure" + i;
+                    go.transform.SetParent(obj.transform, false);
+                    go.transform.localScale = new Vector3(100, 100, 1);
+                    go.transform.localPosition = new Vector3(-217 + i * 47, 10, 0);
+                    go.SetActive(true);
+                    go.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0);
+                }
+            }
+            else
+            {
+                return;
+            }
+        }
     }
-
 }
