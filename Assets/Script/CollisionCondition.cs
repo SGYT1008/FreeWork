@@ -78,7 +78,7 @@ public class CollisionCondition : MonoBehaviour
     {
         if (obj.name == "RectangleObject1")
         {
-           
+            Hero.Instance.jumpTimes = 0;
         }
      
         if (obj.name == "RectangleObj")
