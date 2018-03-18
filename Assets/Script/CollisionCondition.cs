@@ -30,14 +30,7 @@ public class CollisionCondition : MonoBehaviour
     public GameObject objTrigger;//用来接受hero中的触发碰撞检测的物体
     public GameObject objTriExit;
     private Transform tempObj;
-    // public UnityEvent OnConllisionHandler;
-    //
-    // void OnConllisiOnEnter2D(Collision2D collision)
-    // {
-    //     Debug.Log("发生了碰撞");
-    //     OnConllisionHandler.Invoke();
-    // }
-    //public GameObject RoatObj;
+   
     private void Start()
     {
         tempObj = gameObject.transform.Find("Decoration/collider_ci").gameObject.GetComponent<Transform>();
@@ -91,6 +84,7 @@ public class CollisionCondition : MonoBehaviour
                 go.transform.localPosition = new Vector3(160,26,1);
                 go.transform.SetParent(obj.transform, false);
                 go.transform.localScale = new Vector3(100, 100, 1);
+                go.GetComponent<Rigidbody2D>().gravityScale = 0;
                 go.SetActive(true);
             }
             else
@@ -100,6 +94,7 @@ public class CollisionCondition : MonoBehaviour
           
         }
         #endregion
+        //用来检测人物是否触发了该碰撞器
         if (obj.name == "RectangleObj2")
         {
             if (obj.transform.childCount == 0)
@@ -111,6 +106,12 @@ public class CollisionCondition : MonoBehaviour
                 go.transform.localPosition = new Vector3(140,53,0);
                 go.SetActive(true);
                 go.GetComponent<SpriteRenderer>().color = new Color(1,1,1,0);
+                Debug.Log("obj.name="+obj.name);
+                GameObject ob = gameObject.transform.Find("Platform/RectangleObj/Collider_girl").gameObject;
+                if (ob.transform.childCount != 0)
+                {
+                    ob.GetComponent<Rigidbody2D>().gravityScale = 1;
+                }
             }
             else
             {

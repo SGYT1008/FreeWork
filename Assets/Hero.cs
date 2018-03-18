@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
-
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 public class Hero : MonoBehaviour
 {
     private static Hero instance;
@@ -33,26 +34,31 @@ public class Hero : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
     }
-
+    float t;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        
+        if (Input.GetKey(KeyCode.D))
         {
             //向前运动
-            Debug.Log("按下D建");
-            ani.SetBool("right", true);
+            Debug.Log("常按D建");
+            ani.CrossFade("LoopRightState", 0.01f);
             transform.Translate(Vector2.right * Time.deltaTime);
-            //rigid.velocity = new Vector2(2,rigid.velocity.y);
-            //transform.Translate(Vector2.right*10*Time.deltaTime);
-            //transform.position += new Vector2(Vector2.right * 20,transform.position.y);
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            ani.SetBool("loopRight", true);
+        }
+        if (Input.GetKey(KeyCode.A))
         {
             //向后运动
             Debug.Log("按下A建");
-            ani.SetBool("left", true);
+            ani.CrossFade("LoopLeftState", 0.01f);
             transform.Translate(Vector2.left * Time.deltaTime);
-            //transform.Translate(Vector2.left * 10*Time.deltaTime);
+        }
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            ani.SetBool("loopLeft", true);
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -64,35 +70,18 @@ public class Hero : MonoBehaviour
             {
                 //向上运动
                 Debug.Log("按下空格");
-                rigid.AddForce(Vector2.up * 250);
+                rigid.AddForce(Vector2.up * 300);
                 jumpTimes++;
                 Debug.Log("jumpTimes : " + jumpTimes);
             }
         }
     }
-    public void ChangeBool()
-    {
-        if (ani.GetBool("left") == true)
-        {
-            ani.SetBool("left", false);
-        }
-        if (ani.GetBool("right") == true)
-        {
-            ani.SetBool("right", false);
-        }
-    }
-    //  private void LateUpdate()
-    //  {
-    //      if (gameObject.transform.Find("Main Camera").gameObject != null)
-    //      {
-    //          this.transform.LookAt(this.gameObject.transform.position);
-    //      }
-    //  }
+    
     void OnCollisionEnter2D(Collision2D other)
     {
 
         CollisionCondition.Instance.objCollider = other.gameObject;
-        if (other.gameObject.name== "RectangleObject1")
+        if (other.gameObject.name == "RectangleObject1")
         {
             jumpTimes = 0;
         }
